@@ -1,21 +1,18 @@
 import React from 'react'
-import field from './style.module.css'
 import { connect } from 'react-redux'
+import Cell from '../Cell'
+import drawCells from '../../actions/startGame'
 
 class Field extends React.PureComponent {
 
   state = {
-  GameNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, null]
-}
+    GameNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0],
+  }
 
   render() {
 
     const {
-      GameList
-    } = this.props
-
-    const {
-      GameNumbers
+      GameNumbers,
     } = this.state
 
     const compareRandom = (a, b) => {
@@ -24,42 +21,54 @@ class Field extends React.PureComponent {
 
     GameNumbers.sort(compareRandom)
 
-    const sizeWidthField = 4;
-    const sizeHeightField = 4;
-    let amountGameNumbers = 0;
+    const sizeWidthField = 4
+    const sizeHeightField = 4
+    let amountGameNumbers = 0
+    let cellsWrap = []
+    let emptyCellLine = 0;
+    let  emptyCellColumn = 0
 
-    for (let width=1;  width<=sizeWidthField; width++) {
-      for (let height=1;  height<=sizeHeightField; height++) {
-        let fieldCell = {
-          value:GameNumbers[amountGameNumbers],
-          line: width,
-          column: height
+    const startGame = () => {
+      for (let width = 1; width <= sizeWidthField; width++) {
+        for (let height = 1; height <= sizeHeightField; height++) {
+          let fieldCell = {
+            value: GameNumbers[amountGameNumbers],
+            line: width,
+            column: height,
+          }
+          if (fieldCell.value === 0) {
+            emptyCellLine = fieldCell.line;
+            emptyCellColumn = fieldCell.column
+          }
+          amountGameNumbers++
+          cellsWrap.push(fieldCell)
         }
-        GameList.push(fieldCell)
-        amountGameNumbers++;
       }
+      this.props.drawCells(cellsWrap, emptyCellLine, emptyCellColumn)
     }
 
     return (
       <>
-        <section className={field.wrapper}>
-          {GameList.map((number) => (
-            (
-              number.value === null ?
-                <button key={16}>null</button> :
-                <button key={number.value}>{number.value}</button>
-            )
-          ))}
-        </section>
+        <Cell/>
+        <button onClick={startGame}>Start Game</button>
       </>
     )
   }
 }
 
-function mapStateToProps(state) {
+
+const mapStateToProps = (state) => {
   return {
-    GameList: state.GameList,
+    cellsList: state.cellsList,
+    emptyCellLine: state.emptyCellLine,
+    emptyCellColumn: state.emptyCellColumn,
   }
 }
 
-export default connect(mapStateToProps)(Field)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    drawCells: (cellsWrap, emptyCellLine, emptyCellColumn) => dispatch(drawCells(cellsWrap, emptyCellLine, emptyCellColumn)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Field)
