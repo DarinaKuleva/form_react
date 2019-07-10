@@ -1,7 +1,10 @@
 import React from 'react'
+import Field from './components/GameField'
 
-function App() {
-  return <div>jopa</div>
-}
+const App = () => (
+  <main>
+    <Field />
+  </main>
+)
 
 export default App
