@@ -1,0 +1,47 @@
+.wrapper {
+  position: relative;
+
+  height: 140px;
+  margin-bottom: 40px;
+}
+
+.start_button {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+
+  width: 200px;
+  height: 60px;
+  margin-top: -30px;
+  margin-right: -100px;
+
+  color: #fff;
+  font-weight: lighter;
+  font-size: 16px;
+
+  background-color: #640e8c;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.start_button:hover,
+.start_button:active {
+  font-size: 17px;
+
+  outline: none;
+}
+
+.move_counter {
+  position: absolute;
+  right: 50%;
+  bottom: 0;
+
+  width: 200px;
+  margin-right: -100px;
+
+  color: #000;
+  font-weight: lighter;
+  font-size: 18px;
+  text-align: center;
+}

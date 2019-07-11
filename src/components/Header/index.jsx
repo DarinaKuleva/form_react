@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import drawCells from '../../actions/startGame'
 import { connect } from 'react-redux'
 
+import header from './style.module.css'
+
 class Header extends React.PureComponent {
 
   static propTypes = {
@@ -24,20 +26,19 @@ class Header extends React.PureComponent {
       moveCounter,
     } = this.props
 
-    const compareRandom = (a, b) => {
-      return Math.random() - 0.5
-    }
-
-    gameNumbers.sort(compareRandom)
-
-    const sizeWidthField = 4
-    const sizeHeightField = 4
-    let amountGameNumbers = 0
-    let cellsWrap = []
-    let emptyCellLine = 0;
-    let emptyCellColumn = 0
-
     const startGame = () => {
+      const compareRandom = (a, b) => {
+        return Math.random() - 0.5
+      }
+      const sizeWidthField = 4
+      const sizeHeightField = 4
+      let amountGameNumbers = 0
+      let cellsWrap = []
+      let emptyCellLine = 0;
+      let emptyCellColumn = 0
+
+      gameNumbers.sort(compareRandom)
+
       for (let width = 1; width <= sizeWidthField; width++) {
         for (let height = 1; height <= sizeHeightField; height++) {
           let fieldCell = {
@@ -56,11 +57,15 @@ class Header extends React.PureComponent {
       this.props.drawCells(cellsWrap, emptyCellLine, emptyCellColumn)
     }
     return (
-      <header>
-        <button onClick={startGame}>Начать игру</button>
-        <section>
-          <div>Число ходов: {moveCounter}</div>
-        </section>
+      <header className={header.wrapper}>
+        <button onClick={startGame}
+                className={header.start_button}>
+                Начать новую игру
+        </button>
+        {moveCounter > 0 ?
+          <div className={header.move_counter}>Число ходов: {moveCounter}</div> :
+          <></>
+        }
       </header>
     )
   }
