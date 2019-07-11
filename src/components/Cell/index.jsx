@@ -12,67 +12,74 @@ class Cell extends React.PureComponent {
     cellsList: PropTypes.array.isRequired,
     emptyCellLine: PropTypes.number.isRequired,
     emptyCellColumn: PropTypes.number.isRequired,
-    swapCalls: PropTypes.func
+    swapCalls: PropTypes.func,
   }
 
   state = {
-    showErrorMessage: false
+    showErrorMessage: false,
   }
 
   render() {
 
     const {
       cellsList,
-      emptyCellLine,
-      emptyCellColumn
-    }= this.props
+    } = this.props
 
     return (
       <>
         <section className={field.wrapper}>
           {cellsList.map((cell) => (
             <button key={cell.value}
-                    className={ cell.value===0 ? 'empty' : (cell.value-1)===cellsList.indexOf(cell) ? 'done' : 'cell'}
-                    onClick={(cell.value > 0 ?
-                      () => this.moveCell(cell.line, cell.column, emptyCellLine, emptyCellColumn, cell.value) :
-                      this.showError)}
+                    className={cell.value === 0
+                      ? 'empty'
+                      : (cell.value - 1) === cellsList.indexOf(cell)
+                        ? 'done'
+                        : 'cell'
+                    }
+                    onClick={(cell.value > 0
+                        ? () => this.moveCell(cell.line, cell.column, cell.value)
+                        : this.showError
+                    )}
             >
-              {
-                cell.value > 0 ?
-                  cell.value :
-                  <></>
-              }
+              {cell.value > 0 && cell.value}
             </button>
           ))}
         </section>
-        {this.state.showErrorMessage ?
-          <div className={field.error}>Неверный ход</div> :
-          <></>
+        {this.state.showErrorMessage &&
+        <div className={field.error}>
+          Неверный ход
+        </div>
         }
       </>
     )
   }
 
-  moveCell = (currentCellLine, currentCellColumn, emptyCellLine, emptyCellColumn, currentValue) => {
+  moveCell = (currentCellLine, currentCellColumn, currentValue) => {
+    const {
+      emptyCellLine,
+      emptyCellColumn,
+    } = this.props
 
-    const columnSpacing = Math.abs(currentCellColumn - emptyCellColumn)<=1;
-    const lineSpacing = Math.abs(currentCellLine - emptyCellLine)<=1;
-    const equallyColumn = currentCellColumn === emptyCellColumn;
-    const equallyLine = currentCellLine === emptyCellLine;
-    const lineCheck = equallyLine && columnSpacing;
-    const columnCheck =  equallyColumn && lineSpacing;
+    const isColumnNear = Math.abs(currentCellColumn - emptyCellColumn) <= 1
+    const isLineNear = Math.abs(currentCellLine - emptyCellLine) <= 1
+    const isColumnEqually = currentCellColumn === emptyCellColumn
+    const isLineEqually = currentCellLine === emptyCellLine
+    const isMoveAllow = ((isLineEqually && isColumnNear) || (isColumnEqually && isLineNear));
 
-    (lineCheck || columnCheck) ?
-      (this.props.swapCalls(currentCellLine, currentCellColumn, currentValue)) :
-      (this.showError())
+    (isMoveAllow)
+      ? (this.props.swapCalls(currentCellLine, currentCellColumn, currentValue))
+      : (this.showError())
   }
 
   showError = () => {
-    const self = this
-    self.setState({ showErrorMessage: true })
+    this.setState({
+      showErrorMessage: !this.state.showErrorMessage,
+    })
     setTimeout(() => {
-      self.setState({ showErrorMessage: false });
-    }, 500);
+      this.setState({
+        showErrorMessage: !this.state.showErrorMessage,
+      })
+    }, 500)
   }
 
 }
@@ -81,14 +88,14 @@ const mapStateToProps = (state) => {
   return {
     cellsList: state.cellsList,
     emptyCellLine: state.emptyCellLine,
-    emptyCellColumn: state.emptyCellColumn
+    emptyCellColumn: state.emptyCellColumn,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     swapCalls: (currentCellLine, currentCellColumn, currentValue) =>
-      dispatch(swapCalls(currentCellLine, currentCellColumn, currentValue))
+      dispatch(swapCalls(currentCellLine, currentCellColumn, currentValue)),
   }
 }
 
