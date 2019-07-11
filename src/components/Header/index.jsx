@@ -24,20 +24,19 @@ class Header extends React.PureComponent {
       moveCounter,
     } = this.props
 
-    const compareRandom = (a, b) => {
-      return Math.random() - 0.5
-    }
-
-    gameNumbers.sort(compareRandom)
-
-    const sizeWidthField = 4
-    const sizeHeightField = 4
-    let amountGameNumbers = 0
-    let cellsWrap = []
-    let emptyCellLine = 0;
-    let emptyCellColumn = 0
-
     const startGame = () => {
+      const compareRandom = (a, b) => {
+        return Math.random() - 0.5
+      }
+      const sizeWidthField = 4
+      const sizeHeightField = 4
+      let amountGameNumbers = 0
+      let cellsWrap = []
+      let emptyCellLine = 0;
+      let emptyCellColumn = 0
+
+      gameNumbers.sort(compareRandom)
+
       for (let width = 1; width <= sizeWidthField; width++) {
         for (let height = 1; height <= sizeHeightField; height++) {
           let fieldCell = {
