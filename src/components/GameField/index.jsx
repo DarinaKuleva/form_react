@@ -1,10 +1,10 @@
 import React from 'react'
 import Cell from '../Cell'
 
-const Field = () => {
+const GameField = () => {
   return (
-        <Cell/>
-    )
+    <Cell/>
+  )
 }
 
-export default Field
+export default GameField

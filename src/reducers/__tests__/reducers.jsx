@@ -1,4 +1,4 @@
-import reducer from '../reducers/reducer'
+import reducer from '../reducer'
 
 describe('reducer', () => {
 
@@ -12,7 +12,11 @@ describe('reducer', () => {
 
     const action = {
       type: 'START_GAME',
-      cellsList: [{ value: 3, line: 1, column: 1 }, { value: 0, line: 1, column: 2 }, { value: 6, line: 1, column: 5 }],
+      cellsList: [
+        { value: 3, line: 1, column: 1 },
+        { value: 0, line: 1, column: 2 },
+        { value: 6, line: 1, column: 5 }
+        ],
       emptyCellLine: 1,
       emptyCellColumn: 2,
     }
@@ -26,7 +30,11 @@ describe('reducer', () => {
   })
   it('SWAP_CALLS', () => {
     const initialState = {
-      cellsList: [{ value: 3, line: 1, column: 1 }, { value: 0, line: 1, column: 2 }, { value: 6, line: 1, column: 5 }],
+      cellsList: [
+        { value: 3, line: 1, column: 1 },
+        { value: 0, line: 1, column: 2 },
+        { value: 6, line: 1, column: 5 }
+        ],
       emptyCellLine: 1,
       emptyCellColumn: 2,
       moveCounter: 0,
@@ -40,7 +48,11 @@ describe('reducer', () => {
     }
 
     expect(reducer(initialState, action)).toEqual({
-      cellsList: [{ value: 0, line: 1, column: 1 }, { value: 3, line: 1, column: 2 }, { value: 6, line: 1, column: 5 }],
+      cellsList: [
+        { value: 0, line: 1, column: 1 },
+        { value: 3, line: 1, column: 2 },
+        { value: 6, line: 1, column: 5 }
+        ],
       emptyCellLine: 1,
       emptyCellColumn: 1,
       moveCounter: 1,
