@@ -6,7 +6,12 @@ import field from './style.module.css'
 
 class Cell extends React.PureComponent {
 
+  state = {
+    showErrorMessage: false
+  }
+
   render() {
+
     const {
       cellsList,
       emptyCellLine,
@@ -14,12 +19,13 @@ class Cell extends React.PureComponent {
     }= this.props
 
     return (
+      <>
       <section className={field.wrapper}>
         {cellsList.map((cell) => (
           <button key={cell.value}
                     onClick={(cell.value > 0 ?
                       ()=>this.moveCell(cell.line, cell.column, emptyCellLine, emptyCellColumn, cell.value) :
-                      this.test)}
+                      this.showError)}
                   >
             {
               cell.value > 0 ?
@@ -29,22 +35,36 @@ class Cell extends React.PureComponent {
           </button>
         ))}
       </section>
+          {this.state.showErrorMessage ?
+            <div>Неверный ход</div> :
+            <></>
+          }
+        </>
     )
   }
 
   moveCell = (currentCellLine, currentCellColumn, emptyCellLine, emptyCellColumn, currentValue) => {
-    const diffModuleColumn = Math.abs(currentCellColumn - emptyCellColumn)<2;
-    const diffModuleLine = Math.abs(currentCellLine - emptyCellLine) < 2;
-    const conditionColumn = currentCellColumn === emptyCellColumn;
-    const conditionLine = currentCellLine === emptyCellLine;
-    (conditionLine && diffModuleColumn || conditionColumn && diffModuleLine) ?
+
+    const columnSpacing = Math.abs(currentCellColumn - emptyCellColumn)<=1;
+    const lineSpacing = Math.abs(currentCellLine - emptyCellLine)<=1;
+    const equallyColumn = currentCellColumn === emptyCellColumn;
+    const equallyLine = currentCellLine === emptyCellLine;
+    const lineCheck = equallyLine && columnSpacing;
+    const columnCheck =  equallyColumn && lineSpacing;
+
+    (lineCheck || columnCheck) ?
       (this.props.swapCalls(currentCellLine, currentCellColumn, currentValue)) :
-      (this.test())
+      (this.showError())
   }
 
-  test = () => {
-    console.log('здесь будет предупреждение о том что так ходить низя');
+  showError = () => {
+    const self = this
+    self.setState({ showErrorMessage: true })
+    setTimeout(() => {
+      self.setState({ showErrorMessage: false });
+    }, 500);
   }
+
 }
 
 const mapStateToProps = (state) => {
