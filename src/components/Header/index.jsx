@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import drawCells from '../../actions/startGame'
 import { connect } from 'react-redux'
 
+import header from './style.module.css'
+
 class Header extends React.PureComponent {
 
   static propTypes = {
@@ -55,11 +57,15 @@ class Header extends React.PureComponent {
       this.props.drawCells(cellsWrap, emptyCellLine, emptyCellColumn)
     }
     return (
-      <header>
-        <button onClick={startGame}>Начать игру</button>
-        <section>
-          <div>Число ходов: {moveCounter}</div>
-        </section>
+      <header className={header.wrapper}>
+        <button onClick={startGame}
+                className={header.start_button}>
+                Начать новую игру
+        </button>
+        {moveCounter > 0 ?
+          <div className={header.move_counter}>Число ходов: {moveCounter}</div> :
+          <></>
+        }
       </header>
     )
   }

@@ -1,0 +1,36 @@
+.cell {
+  color: #fff;
+  font-size: 32px;
+
+  background-color: #640e8c;
+  border: 1px solid #fff;
+  outline: none;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.cell:hover,
+.cell:active {
+  font-size: 34px;
+
+  outline: none;
+  opacity: 0.5;
+}
+
+.empty {
+  font-size: 32px;
+
+  background-color: #fff;
+  border: 1px solid #fff;
+  outline: none;
+  cursor: pointer;
+}
+
+.done {
+  font-size: 32px;
+
+  background-color: #37c4b6;
+  border: 1px solid #37c4b6;
+  outline: none;
+  cursor: pointer;
+}

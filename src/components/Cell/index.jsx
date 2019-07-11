@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import swapCalls from '../../actions/swapCalls'
 
 import field from './style.module.css'
+import './style.css'
 
 class Cell extends React.PureComponent {
 
@@ -28,26 +29,27 @@ class Cell extends React.PureComponent {
 
     return (
       <>
-      <section className={field.wrapper}>
-        {cellsList.map((cell) => (
-          <button key={cell.value}
+        <section className={field.wrapper}>
+          {cellsList.map((cell) => (
+            <button key={cell.value}
+                    className={ cell.value===0 ? 'empty' : (cell.value-1)===cellsList.indexOf(cell) ? 'done' : 'cell'}
                     onClick={(cell.value > 0 ?
-                      ()=>this.moveCell(cell.line, cell.column, emptyCellLine, emptyCellColumn, cell.value) :
+                      () => this.moveCell(cell.line, cell.column, emptyCellLine, emptyCellColumn, cell.value) :
                       this.showError)}
-                  >
-            {
-              cell.value > 0 ?
-                cell.value :
-                <></>
-            }
-          </button>
-        ))}
-      </section>
-          {this.state.showErrorMessage ?
-            <div>Неверный ход</div> :
-            <></>
-          }
-        </>
+            >
+              {
+                cell.value > 0 ?
+                  cell.value :
+                  <></>
+              }
+            </button>
+          ))}
+        </section>
+        {this.state.showErrorMessage ?
+          <div className={field.error}>Неверный ход</div> :
+          <></>
+        }
+      </>
     )
   }
 
