@@ -1,8 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import drawCells from '../../actions/startGame'
 import { connect } from 'react-redux'
 
 class Header extends React.PureComponent {
+
+  static propTypes = {
+    moveCounter: PropTypes.number.isRequired,
+    drawCells: PropTypes.func
+  }
 
   state = {
     gameNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0],
@@ -51,7 +57,7 @@ class Header extends React.PureComponent {
     }
     return (
       <header>
-        <button onClick={startGame}>Start Game</button>
+        <button onClick={startGame}>Начать игру</button>
         <section>
           <div>Число ходов: {moveCounter}</div>
         </section>
@@ -62,16 +68,13 @@ class Header extends React.PureComponent {
 
 const mapStateToProps = (state) => {
   return {
-    cellsList: state.cellsList,
-    emptyCellLine: state.emptyCellLine,
-    emptyCellColumn: state.emptyCellColumn,
     moveCounter: state.moveCounter
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    drawCells: (cellsWrap, emptyCellLine, emptyCellColumn) => dispatch(drawCells(cellsWrap, emptyCellLine, emptyCellColumn)),
+    drawCells: (Wrap, Line, Column) => dispatch(drawCells(Wrap, Line, Column)),
   }
 }
 

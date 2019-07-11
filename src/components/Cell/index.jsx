@@ -1,10 +1,18 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import swapCalls from '../../actions/swapCalls'
 
 import field from './style.module.css'
 
 class Cell extends React.PureComponent {
+
+  static propTypes = {
+    cellsList: PropTypes.array.isRequired,
+    emptyCellLine: PropTypes.number.isRequired,
+    emptyCellColumn: PropTypes.number.isRequired,
+    swapCalls: PropTypes.func
+  }
 
   state = {
     showErrorMessage: false
