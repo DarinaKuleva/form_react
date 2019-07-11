@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import swapCalls from '../../actions/swapCalls'
 
 import field from './style.module.css'
-import './style.css'
+import './cellsStyle.css'
 
 class Cell extends React.PureComponent {
 

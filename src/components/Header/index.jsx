@@ -17,7 +17,6 @@ class Header extends React.PureComponent {
   }
 
   render() {
-
     const {
       gameNumbers,
     } = this.state
