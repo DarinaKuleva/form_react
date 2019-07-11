@@ -5,14 +5,15 @@ import { GAME_NUMBERS } from '../../constants'
 describe('reducer', () => {
 
   it('generate random field', () => {
-    let grid = compareRandom(GAME_NUMBERS);
+    let field = compareRandom(GAME_NUMBERS);
 
-    expect(compareRandom(GAME_NUMBERS)).not.toEqual(grid);
-    expect(compareRandom(GAME_NUMBERS)).not.toEqual(grid);
+    expect(compareRandom(GAME_NUMBERS)).not.toEqual(field);
+    expect(compareRandom(GAME_NUMBERS)).not.toEqual(field);
   });
-  it('check cellsWrap length', () => {
-    let cellsWrap = generateCellField();
 
-    expect(cellsWrap.cellsWrap.length).toBe(16);
+  it('check cellsWrap length', () => {
+    let field = generateCellField();
+
+    expect(field.cellsList.length).toBe(16);
   });
 })

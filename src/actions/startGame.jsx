@@ -1,7 +1,7 @@
-function startGame(cellsWrap, emptyCellLine, emptyCellColumn) {
+function startGame(cellsList, emptyCellLine, emptyCellColumn) {
   return {
     type: 'START_GAME',
-    cellsList: cellsWrap,
+    cellsList,
     emptyCellLine,
     emptyCellColumn
   }

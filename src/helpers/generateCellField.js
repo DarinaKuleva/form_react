@@ -3,7 +3,7 @@ import { SIZE_HEIGHT_FIELD, SIZE_WIDTH_FIELD, GAME_NUMBERS } from '../constants'
 
 export const generateCellField = () => {
   let amountGameNumbers = 0
-  let cellsWrap = []
+  let cellsList = []
   let emptyCellLine = 0
   let emptyCellColumn = 0
 
@@ -21,11 +21,11 @@ export const generateCellField = () => {
         emptyCellColumn = fieldCell.column
       }
       amountGameNumbers++
-      cellsWrap.push(fieldCell)
+      cellsList.push(fieldCell)
     }
   }
   return {
-    cellsWrap,
+    cellsList,
     emptyCellLine,
     emptyCellColumn,
   }

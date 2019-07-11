@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import drawCells from '../../actions/startGame'
+import startGame from '../../actions/startGame'
 import { generateCellField } from '../../helpers/generateCellField'
 
 import header from './style.module.css'
@@ -10,7 +10,7 @@ class Header extends React.PureComponent {
 
   static propTypes = {
     moveCounter: PropTypes.number.isRequired,
-    drawCells: PropTypes.func
+    drawCells: PropTypes.func,
   }
 
   render() {
@@ -35,20 +35,20 @@ class Header extends React.PureComponent {
   }
 
   startGame = () => {
-    const {cellsWrap, emptyCellLine, emptyCellColumn} = generateCellField();
-    this.props.drawCells(cellsWrap, emptyCellLine, emptyCellColumn);
+    const { cellsList, emptyCellLine, emptyCellColumn } = generateCellField()
+    this.props.drawCells(cellsList, emptyCellLine, emptyCellColumn)
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    moveCounter: state.moveCounter
+    moveCounter: state.moveCounter,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    drawCells: (wrap, line, column) => dispatch(drawCells(wrap, line, column)),
+    drawCells: (list, line, column) => dispatch(startGame(list, line, column)),
   }
 }
 
