@@ -13,12 +13,14 @@ export default function reducer(state, action) {
         ),
         emptyCellLine: action.currentCellLine,
         emptyCellColumn: action.currentCellColumn,
+        moveCounter: state.moveCounter + 1,
       }
     case 'START_GAME':
       return {
         cellsList: action.cellsList,
         emptyCellLine: action.emptyCellLine,
         emptyCellColumn: action.emptyCellColumn,
+        moveCounter: 0,
       }
     default:
       return state
